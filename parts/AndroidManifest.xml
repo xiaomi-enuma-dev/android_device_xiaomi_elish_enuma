@@ -102,11 +102,6 @@
                 android:value="primary_profile_only" />
         </activity>
 
-        <activity
-            android:name=".button.KeyHandler"
-            android:exported="false"
-            android:enabled="false" />
-
         <service android:name=".keyboard.KeyboardService" />
 
         <service android:name=".stylus.StylusService" />
