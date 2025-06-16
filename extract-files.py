@@ -19,11 +19,14 @@ from extract_utils.main import (
 blob_fixups: blob_fixups_user_type = {
     'vendor/etc/init/init.batterysecret.rc': blob_fixup()
         .regex_replace('.*seclabel u:r:batterysecret:s0\n', ''),
+    'vendor/lib/libaudioroute_ext.so': blob_fixup()
+        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so'),
     'vendor/lib/hw/audio.primary.elish.so': blob_fixup()
         .binary_regex_replace(
             b'/vendor/lib/liba2dpoffload.so',
             b'liba2dpoffload_elish.so\x00\x00\x00\x00\x00\x00',
-        ),
+        )
+        .replace_needed('libaudioroute.so', 'libaudioroute-v34.so'),
     'vendor/lib64/camera/components/com.mi.node.watermark.so': blob_fixup()
         .add_needed('libpiex_shim.so'),
     'vendor/lib64/vendor.qti.hardware.camera.postproc@1.0-service-impl.so': blob_fixup()
@@ -31,6 +34,7 @@ blob_fixups: blob_fixups_user_type = {
 }  # fmt: skip
 
 namespace_imports = [
+    'device/xiaomi/elish',
     'hardware/qcom-caf/common/libqti-perfd-client',
     'hardware/qcom-caf/sm8250',
     'hardware/xiaomi',
